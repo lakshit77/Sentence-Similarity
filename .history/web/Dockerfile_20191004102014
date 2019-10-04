@@ -1,0 +1,19 @@
+# docker pull an image of python version 3 from docker hub
+# https://hub.docker.com/search?q=python&type=image
+FROM python:3    
+# now we have to set the path to our working directory
+WORKDIR /usr/src
+# now copy all the requirement library you want to install 
+# it take two parameter first file and second to where.
+# here we want requirement.txt file to "." means currently working directory
+COPY requirement.txt .
+# now machine install all the library from requirement.txt
+RUN pip install --no-cache-dir -r requirement.txt
+# now here there are two parameter "." "."
+# here first "." means copying all the file in machine which are app.py and requirement.txt to /usr/src
+# second "." is what gets into the machine
+COPY . . 
+# install pretrained spacy model.
+RUN pip install ./en_core_web_sm-2.0.0.tar.gz
+# now we are telling machine to run python in app.py
+CMD ["python", "app.py"]

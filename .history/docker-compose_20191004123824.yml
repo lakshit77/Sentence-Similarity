@@ -1,0 +1,19 @@
+#specify which version want to use
+version: '3.7'
+
+#create services
+services:
+#first service is web 
+  web:
+  # it is build on web directory in current directory
+    build: ./web 
+    # specifing the port number
+    ports:
+      - "5000:5000"
+    # it is linked to database db
+    links:
+      - db
+# second service is database
+  db:
+  # it is build in db directory
+    build: ./db
